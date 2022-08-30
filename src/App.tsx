@@ -3,7 +3,8 @@ import { Octokit } from '@octokit/rest';
 
 const collectRepos = async (username: string) => {
   const octo = new Octokit();
-  return (async () => (await octo.repos.listForUser({ username })).data)();
+  const list = await octo.repos.listForUser({ username });
+  return list.data;
 };
 
 type DataType = Awaited<ReturnType<typeof collectRepos>>;

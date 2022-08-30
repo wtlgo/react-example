@@ -30,7 +30,9 @@ const App: React.FC = () => {
   return (
     <ul>
       {repos.map((repo) => (
-        <li key={repo.id}>{repo.full_name}</li>
+        <li key={repo.id}>
+          <a href={`https://github.com/${repo.full_name}`}>{repo.full_name}</a>
+        </li>
       ))}
     </ul>
   );

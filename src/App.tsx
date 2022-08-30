@@ -11,18 +11,23 @@ type DataType = Awaited<ReturnType<typeof collectRepos>>;
 
 const useGithub = () => {
   const [repos, setRepos] = useState<DataType | null>(null);
+  const [error, setError] = useState<any | null>(null);
 
   useEffect(() => {
     collectRepos('wtlgo')
       .then((result) => setRepos(result))
-      .catch(console.error);
+      .catch((error) => setError(error));
   }, []);
 
-  return { repos };
+  return { repos, error };
 };
 
 const App: React.FC = () => {
-  const { repos } = useGithub();
+  const { repos, error } = useGithub();
+
+  if (error !== null) {
+    return <div>Error: {error}</div>;
+  }
 
   if (repos === null) {
     return <div>Loading...</div>;
